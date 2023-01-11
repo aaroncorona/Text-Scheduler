@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cfe2f3"
+    tools:context=".NewTextFragment">
+
+    <TextView
+        android:id="@+id/textview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Text Settings"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/textPhoneInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.334" />
+
+    <EditText
+        android:id="@+id/textPhoneInput"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:minHeight="50dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/textDateInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+    <EditText
+        android:id="@+id/textDateInput"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:hint="Date"
+        android:inputType="date"
+        android:minHeight="50dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/textTimeInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textPhoneInput" />
+
+    <EditText
+        android:id="@+id/textTimeInput"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:hint="Time"
+        android:inputType="time"
+        android:minHeight="50dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/textMessageInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textDateInput" />
+
+    <EditText
+        android:id="@+id/textMessageInput"
+        android:layout_width="300dp"
+        android:layout_height="73dp"
+        android:hint="Message"
+        android:minHeight="70dp"
+        android:inputType="textLongMessage"
+        android:background="#DFDFDF"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/button_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTimeInput" />
+
+    <Button
+        android:id="@+id/button_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF8112"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMessageInput"
+        app:layout_constraintBottom_toTopOf="@id/button_previous"
+        app:layout_constraintVertical_bias="0.28" />
+
+    <Button
+        android:id="@+id/button_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#CEC3B9"
+        android:text="Previous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_submit"
+        app:layout_constraintVertical_bias="0.168" />
+</androidx.constraintlayout.widget.ConstraintLayout>
