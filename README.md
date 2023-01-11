@@ -1,4 +1,5 @@
-# Text-Scheduler
+# Text Scheduler
+An Android App that sets up an SMS message to be sent automatically.
 
 ### Landing Page
 <img width="250" alt="ss_home" src="https://user-images.githubusercontent.com/31792170/211728010-8826279d-6ffc-4132-a62f-fe0de9eb3a5b.png">
