@@ -27,6 +27,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <receiver android:name="com.textscheduler.sms.SmsReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.textscheduler.text" />
+            </intent-filter>
+        </receiver>
     </application>
 
     <uses-permission android:name="android.permission.SEND_SMS" />
