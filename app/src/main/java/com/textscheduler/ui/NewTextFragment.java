@@ -1,4 +1,4 @@
-package com.textscheduler;
+package com.textscheduler.ui;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.textscheduler.R;
 import com.textscheduler.databinding.FragmentNewTextBinding;
 import com.textscheduler.sms.Sms;
 import com.textscheduler.sms.SmsReceiver;

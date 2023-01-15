@@ -1,4 +1,4 @@
-package com.textscheduler;
+package com.textscheduler.ui;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.textscheduler.R;
 import com.textscheduler.databinding.ActivityMainBinding;
 
 import android.view.Menu;

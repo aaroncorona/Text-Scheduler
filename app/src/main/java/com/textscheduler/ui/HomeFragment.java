@@ -1,4 +1,4 @@
-package com.textscheduler;
+package com.textscheduler.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.textscheduler.R;
 import com.textscheduler.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {

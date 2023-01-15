@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.textscheduler.NewTextFragment;
+import com.textscheduler.ui.NewTextFragment;
 
 // Class to handle broadcasts for Sms messages, in which a text is sent as a result
 public class SmsReceiver extends BroadcastReceiver {
