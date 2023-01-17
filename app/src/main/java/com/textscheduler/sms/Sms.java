@@ -4,7 +4,7 @@ import android.icu.util.Calendar;
 import android.telephony.SmsManager;
 
 // Class where each object configures an SmsMessage
-public class Sms {
+public final class Sms {
     String phone, message;
     String sendDatetime;
     String sendResult;

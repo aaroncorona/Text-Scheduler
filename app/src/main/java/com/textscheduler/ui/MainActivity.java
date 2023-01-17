@@ -3,11 +3,7 @@ package com.textscheduler.ui;
 import android.Manifest;
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
