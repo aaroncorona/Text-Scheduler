@@ -15,23 +15,38 @@ public class Sms {
 
     public void sendSms() {
         // Send text if valid number
-        if(isValidNumber(phone)) {
+        if(isValid()) {
             SmsManager sms = SmsManager.getDefault();
             sms.sendTextMessage(phone, null, message, null, null);
             sendResult = "Text Message sent to " + getPhone();
         } else {
-            sendResult = "Invalid number, Text Message not sent";
+            sendResult = "Invalid settings, Text Message not sent";
         }
     }
 
-    // Helper to replace invalid numbers to avoid app crashes
-    private boolean isValidNumber(String phone) {
+    public boolean isValid() {
+        if(hasValidNumber() && hasValidMessage()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Helper to avoid app crashes from unreachable SMS destinations
+    private boolean hasValidNumber() {
         if(phone.length() <= 2) {
             return false;
         }
         try{
             int num = Integer.parseInt(phone);
         } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    // Helper to avoid blank messages that wont send
+    private boolean hasValidMessage() {
+        if(message.length() == 0) {
             return false;
         }
         return true;
