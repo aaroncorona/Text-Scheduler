@@ -1,16 +1,32 @@
 package com.textscheduler.sms;
 
+import android.icu.util.Calendar;
 import android.telephony.SmsManager;
 
 // Class where each object configures an SmsMessage
 public class Sms {
     String phone, message;
+    String sendDatetime;
     String sendResult;
 
     public Sms(String phone, String message) {
         this.phone = phone;
         this.message = message;
-        sendResult = "No Message Requested"; // default value
+
+        // Set default values
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        sendDatetime = String.valueOf(calendar.getTime());
+        sendResult = "No Message Requested";
+    }
+
+    public Sms(String phone, String message, String sendDatetime) {
+        this.phone = phone;
+        this.message = message;
+        this.sendDatetime = sendDatetime;
+
+        // Set default values
+        sendResult = "No Message Requested";
     }
 
     public void sendSms() {
@@ -58,6 +74,10 @@ public class Sms {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getSendDatetime() {
+        return sendDatetime;
     }
 
     public String getMessage() {
