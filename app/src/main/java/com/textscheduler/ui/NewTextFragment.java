@@ -19,6 +19,7 @@ import com.textscheduler.R;
 import com.textscheduler.databinding.FragmentNewTextBinding;
 import com.textscheduler.sms.Sms;
 import com.textscheduler.sms.SmsReceiver;
+import com.textscheduler.smsdatabase.SmsRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,8 @@ import java.text.SimpleDateFormat;
 public class NewTextFragment extends Fragment {
 
     private FragmentNewTextBinding binding;
-    private static Sms sms;
+    private static Sms sms; // TODO replace the receiver's reference to this, use the Intent or DB instead
+    private SmsRepository smsRepo;
 
     @Override
     public View onCreateView(
@@ -39,6 +41,7 @@ public class NewTextFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        smsRepo = SmsRepository.getInstance(getContext());
 
         binding.buttonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +58,6 @@ public class NewTextFragment extends Fragment {
                 String time = String.valueOf(binding.textTimeInput.getText());
                 String phone = String.valueOf(binding.textPhoneInput.getText());
                 String message = String.valueOf(binding.textMessageInput.getText());
-                // SMS obj
-                sms = new Sms(phone, message);
                 // Intent
                 Context context = getContext();
                 Intent intent = new Intent(context, SmsReceiver.class);
@@ -77,7 +78,16 @@ public class NewTextFragment extends Fragment {
                 // Alarm
                 AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
-                Toast.makeText(context, "Text scheduled", Toast.LENGTH_LONG).show();
+                // SMS obj for the receiver and repo to reference
+                sms = new Sms(phone, message, String.valueOf(calendar.getTime()));
+                // Create Database record for the text
+                smsRepo.insertRecord(sms);
+                // Response message
+                if(sms.isValid()) {
+                    Toast.makeText(context, "Text scheduled", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Text not scheduled - Invalid input", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
