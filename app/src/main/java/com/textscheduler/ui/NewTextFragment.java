@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,6 @@ import java.text.SimpleDateFormat;
 public class NewTextFragment extends Fragment {
 
     private FragmentNewTextBinding binding;
-    private static Sms sms; // TODO replace the receiver's reference to this, use the Intent or DB instead
     private SmsRepository smsRepo;
 
     @Override
@@ -58,11 +58,6 @@ public class NewTextFragment extends Fragment {
                 String time = String.valueOf(binding.textTimeInput.getText());
                 String phone = String.valueOf(binding.textPhoneInput.getText());
                 String message = String.valueOf(binding.textMessageInput.getText());
-                // Intent
-                Context context = getContext();
-                Intent intent = new Intent(context, SmsReceiver.class);
-                intent.setAction("com.textscheduler.text");
-                PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
                 // Schedule settings
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy");
@@ -75,15 +70,21 @@ public class NewTextFragment extends Fragment {
                     calendar.set(Calendar.HOUR, Integer.parseInt(time.substring(0,2)));
                     calendar.set(Calendar.MINUTE, Integer.parseInt(time.substring(3)));
                 } catch (NumberFormatException | StringIndexOutOfBoundsException e) {}
+                // SMS Intent
+                Context context = getContext();
+                Intent intent = new Intent(context, SmsReceiver.class);
+                intent.putExtra("recipient_number", phone);
+                intent.putExtra("message_body", message);
+                intent.putExtra("send_datetime", String.valueOf(calendar.getTimeInMillis()));
+                intent.setAction("com.textscheduler.text");
+                PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
                 // Alarm
                 AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
-                // SMS obj for the receiver and repo to reference
-                sms = new Sms(phone, message, String.valueOf(calendar.getTime()));
-                // Create Database record for the text
-                smsRepo.insertRecord(sms);
-                // Response message
+                // Database record for other pages to reference (e.g. checking existing texts)
+                Sms sms = new Sms(phone, message, String.valueOf(calendar.getTime()));
                 if(sms.isValid()) {
+                    smsRepo.insertRecord(sms);
                     Toast.makeText(context, "Text scheduled", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context, "Text not scheduled - Invalid input", Toast.LENGTH_LONG).show();
@@ -97,9 +98,4 @@ public class NewTextFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    public static Sms getSms() {
-        return sms;
-    };
-
 }
