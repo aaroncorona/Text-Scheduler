@@ -5,13 +5,13 @@ import android.telephony.SmsManager;
 
 // Class where each object configures an SmsMessage
 public final class Sms {
-    String phone, message;
+    String recipientNumber, messageBody;
     String sendDatetime;
     String sendResult;
 
-    public Sms(String phone, String message) {
-        this.phone = phone;
-        this.message = message;
+    public Sms(String recipientNumber, String messageBody) {
+        this.recipientNumber = recipientNumber;
+        this.messageBody = messageBody;
 
         // Set default values
         Calendar calendar = Calendar.getInstance();
@@ -20,9 +20,9 @@ public final class Sms {
         sendResult = "No Message Requested";
     }
 
-    public Sms(String phone, String message, String sendDatetime) {
-        this.phone = phone;
-        this.message = message;
+    public Sms(String recipientNumber, String messageBody, String sendDatetime) {
+        this.recipientNumber = recipientNumber;
+        this.messageBody = messageBody;
         this.sendDatetime = sendDatetime;
 
         // Set default values
@@ -33,7 +33,7 @@ public final class Sms {
         // Send text if valid number
         if(isValid()) {
             SmsManager sms = SmsManager.getDefault();
-            sms.sendTextMessage(phone, null, message, null, null);
+            sms.sendTextMessage(recipientNumber, null, messageBody, null, null);
             sendResult = "Text Message sent to " + getPhone();
         } else {
             sendResult = "Invalid settings, Text Message not sent";
@@ -49,11 +49,11 @@ public final class Sms {
 
     // Helper to avoid app crashes from unreachable SMS destinations
     private boolean hasValidNumber() {
-        if(phone.length() <= 2) {
+        if(recipientNumber.length() <= 2) {
             return false;
         }
         try{
-            int num = Integer.parseInt(phone);
+            int num = Integer.parseInt(recipientNumber);
         } catch (NumberFormatException e) {
             return false;
         }
@@ -62,7 +62,7 @@ public final class Sms {
 
     // Helper to avoid blank messages that wont send
     private boolean hasValidMessage() {
-        if(message.length() == 0) {
+        if(messageBody.length() == 0) {
             return false;
         }
         return true;
@@ -73,7 +73,7 @@ public final class Sms {
     }
 
     public String getPhone() {
-        return phone;
+        return recipientNumber;
     }
 
     public String getSendDatetime() {
@@ -81,6 +81,6 @@ public final class Sms {
     }
 
     public String getMessage() {
-        return message;
+        return messageBody;
     }
 }

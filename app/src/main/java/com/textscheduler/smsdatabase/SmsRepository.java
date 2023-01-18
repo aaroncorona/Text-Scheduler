@@ -46,7 +46,7 @@ public final class SmsRepository {
         }
     }
 
-    public List<SmsEntity>  getAllRecords() {
+    public List<SmsEntity> getAllRecords() {
         final List<SmsEntity>[] smsAll = new List[]{null};
         new AsyncTask<Void, Void, Void>() {
             @Override
