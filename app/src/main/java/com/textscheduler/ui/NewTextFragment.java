@@ -19,7 +19,6 @@ import com.textscheduler.R;
 import com.textscheduler.databinding.FragmentNewTextBinding;
 import com.textscheduler.sms.Sms;
 import com.textscheduler.sms.SmsReceiver;
-import com.textscheduler.smsdatabase.SmsRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +26,6 @@ import java.text.SimpleDateFormat;
 public class NewTextFragment extends Fragment {
 
     private FragmentNewTextBinding binding;
-    private SmsRepository smsRepo;
 
     @Override
     public View onCreateView(
@@ -40,7 +38,6 @@ public class NewTextFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        smsRepo = MainActivity.getSmsRepo();
 
         binding.buttonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +80,7 @@ public class NewTextFragment extends Fragment {
                 // Database record for other pages to reference (e.g. checking existing texts)
                 Sms sms = new Sms(phone, message, String.valueOf(calendar.getTime()));
                 if(sms.isValid()) {
-                    smsRepo.insertRecord(sms);
+                    MainActivity.insertSmsRecord(sms);
                     Toast.makeText(context, "Text scheduled", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context, "Text not scheduled - Invalid input", Toast.LENGTH_LONG).show();

@@ -27,4 +27,7 @@ public interface SmsDao {
 
     @Delete
     void delete(SmsEntity sms);
+
+    @Query("DELETE FROM sms")
+    public void nukeTable();
 }

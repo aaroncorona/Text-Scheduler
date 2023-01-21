@@ -19,11 +19,13 @@ public final class SmsRepository {
     }
 
     private void createDB(Context context) {
-        db = Room.databaseBuilder(context, SmsDatabase.class, "sms-database").build();
+        db = Room.databaseBuilder(context, SmsDatabase.class, "sms-database")
+                .allowMainThreadQueries().build();
         dao = db.smsDao();
     }
 
     public void insertRecord(Sms sms) {
+        nukeTable();
         if(sms.isValid()) {
             // Create entity obj (i.e. define the row)
             SmsEntity smsRow = new SmsEntity();
@@ -41,14 +43,16 @@ public final class SmsRepository {
     }
 
     public List<SmsEntity> getAllRecords() {
-        final List<SmsEntity>[] smsAll = new List[]{null};
+        return dao.getAll();
+    }
+
+    public void nukeTable() {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                smsAll[0] = dao.getAll();
+                dao.nukeTable();
                 return null;
             }
         }.execute();
-        return smsAll[0];
     }
 }

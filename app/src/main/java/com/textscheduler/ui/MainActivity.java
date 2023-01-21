@@ -13,10 +13,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.textscheduler.R;
 import com.textscheduler.databinding.ActivityMainBinding;
+import com.textscheduler.sms.Sms;
+import com.textscheduler.smsdatabase.SmsEntity;
 import com.textscheduler.smsdatabase.SmsRepository;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,7 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public static SmsRepository getSmsRepo() {
-        return smsRepo;
+    public static List<SmsEntity> getAllSmsRecords() {
+        return smsRepo.getAllRecords();
+    }
+
+    public static void insertSmsRecord(Sms sms) {
+        smsRepo.insertRecord(sms);
     }
 }

@@ -20,11 +20,15 @@ public final class SmsEntity {
     private String sendDatetime;
 
     // Getters & Setters
-    protected String getRecipientNumber() {
+    public int getId() {
+        return uid;
+    }
+
+    public String getRecipientNumber() {
         return recipientNumber;
     }
 
-    protected String getSendDatetime() {
+    public String getSendDatetime() {
         return sendDatetime;
     }
 
@@ -38,7 +42,7 @@ public final class SmsEntity {
 
     @Override
     public String toString() {
-        return "Text " + recipientNumber + " at " + sendDatetime;
+        return "ID " + uid + "; Text " + recipientNumber + "; Send at " + sendDatetime;
     }
 }
 
