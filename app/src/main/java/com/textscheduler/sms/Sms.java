@@ -52,13 +52,13 @@ public final class Sms {
 
     // Helper to avoid app crashes from unreachable SMS destinations
     private boolean hasValidNumber() {
-        if(recipientNumber.length() <= 2) {
+        if(recipientNumber.length() <= 2 || recipientNumber.length() >= 11) {
             return false;
         }
-        try{
-            int num = Integer.parseInt(recipientNumber);
-        } catch (NumberFormatException e) {
-            return false;
+        for (int i = 0; i < recipientNumber.length(); i++) {
+            if (!Character.isDigit(recipientNumber.charAt(i))) {
+                return false;
+            }
         }
         return true;
     }
