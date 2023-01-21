@@ -3,6 +3,9 @@ package com.textscheduler.sms;
 import android.icu.util.Calendar;
 import android.telephony.SmsManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 // Class where each object configures an SmsMessage
 public final class Sms {
     String recipientNumber, messageBody;
@@ -68,6 +71,25 @@ public final class Sms {
         return true;
     }
 
+    // Check if the SMS send datetime already passed
+    public boolean wasSent() {
+        // Extract the send date and compare it to the current time
+        Calendar calSendDatetime = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        try {
+            calSendDatetime.setTime(df.parse(sendDatetime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calCurrentTime = Calendar.getInstance();
+        calCurrentTime.setTimeInMillis(System.currentTimeMillis());
+        if(calCurrentTime.compareTo(calSendDatetime) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String getSendResult() {
         return sendResult;
     }
@@ -82,5 +104,10 @@ public final class Sms {
 
     public String getMessage() {
         return messageBody;
+    }
+
+    @Override
+    public String toString() {
+        return "Send to " + recipientNumber + "; \nSend at " + sendDatetime.substring(4);
     }
 }

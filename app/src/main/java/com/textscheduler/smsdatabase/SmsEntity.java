@@ -42,7 +42,8 @@ public final class SmsEntity {
 
     @Override
     public String toString() {
-        return "ID " + uid + "; Text " + recipientNumber + "; Send at " + sendDatetime;
+        return "Send to " + recipientNumber + ";\n" +
+                "Send at " + sendDatetime.substring(4);
     }
 }
 

@@ -41,9 +41,8 @@ public class HomeFragment extends Fragment {
         binding.buttonExisting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO add Fragment to see existing texts
-//                NavHostFragment.findNavController(HomeFragment.this)
-//                        .navigate(R.id.action_HomeFragment_to_NewTextFragment);
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_HomeFragment_to_ExistingTextsFragment);
             }
         });
     }

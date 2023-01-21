@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_HomeFragment_to_NewTextFragment"
             app:destination="@id/NewTextFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_ExistingTextsFragment"
+            app:destination="@id/ExistingTextsFragment" />
     </fragment>
     <fragment
         android:id="@+id/NewTextFragment"
@@ -23,6 +26,16 @@
 
         <action
             android:id="@+id/action_NewTextFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ExistingTextsFragment"
+        android:name="com.textscheduler.ui.ExistingTextsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_existing_texts">
+
+        <action
+            android:id="@+id/action_ExistingTextsFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
 </navigation>

@@ -25,7 +25,6 @@ public final class SmsRepository {
     }
 
     public void insertRecord(Sms sms) {
-        nukeTable();
         if(sms.isValid()) {
             // Create entity obj (i.e. define the row)
             SmsEntity smsRow = new SmsEntity();
