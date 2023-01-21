@@ -83,15 +83,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textMessageInput"
-        app:layout_constraintBottom_toTopOf="@id/button_previous"
+        app:layout_constraintBottom_toTopOf="@id/button_existing"
         app:layout_constraintVertical_bias="0.28" />
 
     <Button
-        android:id="@+id/button_previous"
+        android:id="@+id/button_existing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#CEC3B9"
-        android:text="Previous"
+        android:text="Pending Texts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

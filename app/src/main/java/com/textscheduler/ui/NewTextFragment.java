@@ -39,11 +39,11 @@ public class NewTextFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonPrevious.setOnClickListener(new View.OnClickListener() {
+        binding.buttonExisting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(NewTextFragment.this)
-                        .navigate(R.id.action_NewTextFragment_to_HomeFragment);
+                        .navigate(R.id.action_NewTextFragment_to_ExistingTextsFragment);
             }
         });
         binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
