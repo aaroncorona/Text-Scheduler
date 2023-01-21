@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.textscheduler.R;
 import com.textscheduler.databinding.ActivityMainBinding;
+import com.textscheduler.smsdatabase.SmsRepository;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private static SmsRepository smsRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.SEND_SMS}, 2);
+
+        smsRepo = new SmsRepository(this.getApplicationContext());
     }
 
     @Override
@@ -62,5 +66,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public static SmsRepository getSmsRepo() {
+        return smsRepo;
     }
 }

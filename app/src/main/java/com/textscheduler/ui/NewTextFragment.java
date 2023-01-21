@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,7 @@ public class NewTextFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        smsRepo = SmsRepository.getInstance(getContext());
+        smsRepo = MainActivity.getSmsRepo();
 
         binding.buttonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override

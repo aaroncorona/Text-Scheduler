@@ -11,17 +11,11 @@ import java.util.List;
 
 public final class SmsRepository {
 
-    private static final SmsRepository instance = new SmsRepository();
     private SmsDatabase db;
     private SmsDao dao;
 
-    // Singleton design
-    private SmsRepository() {
-    }
-
-    public static SmsRepository getInstance(Context context) {
-        instance.createDB(context);
-        return instance;
+    public SmsRepository(Context context) {
+        createDB(context);
     }
 
     private void createDB(Context context) {
