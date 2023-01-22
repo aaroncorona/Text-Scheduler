@@ -21,7 +21,7 @@ public final class SmsRepository {
     private void createDB(Context context) {
         db = Room.databaseBuilder(context, SmsDatabase.class, "sms-database")
                 .allowMainThreadQueries().build();
-        dao = db.smsDao();
+        dao = db.getSmsDao();
     }
 
     public void insertRecord(Sms sms) {
@@ -43,6 +43,10 @@ public final class SmsRepository {
 
     public List<SmsEntity> getAllRecords() {
         return dao.getAll();
+    }
+
+    public List<SmsEntity> getRecordsByNumber(String recipientNumber) {
+        return dao.getAllByNumber(recipientNumber);
     }
 
     public void nukeTable() {

@@ -5,6 +5,6 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {SmsEntity.class}, version = 1)
 public abstract class SmsDatabase extends RoomDatabase {
-    public abstract SmsDao smsDao();
+    public abstract SmsDao getSmsDao();
 }
 
