@@ -32,11 +32,11 @@ public final class SmsEntity {
         return sendDatetime;
     }
 
-    protected void setRecipientNumber(String recipientNumber) {
+    public void setRecipientNumber(String recipientNumber) {
         this.recipientNumber = recipientNumber;
     }
 
-    protected void setSendDatetime(String sendDatetime) {
+    public void setSendDatetime(String sendDatetime) {
         this.sendDatetime = sendDatetime;
     }
 
