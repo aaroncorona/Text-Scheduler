@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Enter Text Settings"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@id/textDateInput"
+        app:layout_constraintBottom_toTopOf="@id/text_date_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,46 +22,46 @@
         app:layout_constraintVertical_bias="0.334" />
 
     <EditText
-        android:id="@+id/textDateInput"
+        android:id="@+id/text_date_input"
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:hint="Date (mm/dd/yy)"
         android:inputType="date"
         android:minHeight="50dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/textTimeInput"
+        app:layout_constraintBottom_toTopOf="@id/text_time_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_title" />
 
     <EditText
-        android:id="@+id/textTimeInput"
+        android:id="@+id/text_time_input"
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:hint="Time (hh:mm)"
         android:inputType="time"
         android:minHeight="50dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/textPhoneInput"
+        app:layout_constraintBottom_toTopOf="@id/text_phone_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textDateInput" />
+        app:layout_constraintTop_toBottomOf="@id/text_date_input" />
 
     <EditText
-        android:id="@+id/textPhoneInput"
+        android:id="@+id/text_phone_input"
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:hint="Phone Number"
         android:inputType="phone"
         android:minHeight="50dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/textMessageInput"
+        app:layout_constraintBottom_toTopOf="@id/text_message_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTimeInput" />
+        app:layout_constraintTop_toBottomOf="@id/text_time_input" />
 
     <EditText
-        android:id="@+id/textMessageInput"
+        android:id="@+id/text_message_input"
         android:layout_width="300dp"
         android:layout_height="73dp"
         android:hint="Message"
@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@id/button_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textPhoneInput" />
+        app:layout_constraintTop_toBottomOf="@id/text_phone_input" />
 
     <Button
         android:id="@+id/button_submit"
@@ -82,7 +82,7 @@
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textMessageInput"
+        app:layout_constraintTop_toBottomOf="@id/text_message_input"
         app:layout_constraintBottom_toTopOf="@id/button_existing"
         app:layout_constraintVertical_bias="0.28" />
 
