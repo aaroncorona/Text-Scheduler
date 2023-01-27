@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--This defines each item that is added to a list via Adapter-->
+    <!--This defines each item that is added to a list via Adapter-->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/sms_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"

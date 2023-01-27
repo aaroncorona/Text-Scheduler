@@ -15,7 +15,6 @@ import com.textscheduler.R;
 import com.textscheduler.databinding.FragmentExistingTextsBinding;
 import com.textscheduler.sms.Sms;
 import com.textscheduler.smsdatabase.SmsEntity;
-import com.textscheduler.smsdatabase.SmsRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class ExistingTextsFragment extends Fragment {
         // Populate list view
         listView = (ListView) view.findViewById(R.id.sms_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                R.layout.sms_list, R.id.textView, smsAllString); // set where to populate the list
+                R.layout.sms_view_for_list, R.id.sms_text_view, smsAllString); // set where to populate the list
         listView.setAdapter(adapter); // set where the populated list shows up
 
         // Button to return home
