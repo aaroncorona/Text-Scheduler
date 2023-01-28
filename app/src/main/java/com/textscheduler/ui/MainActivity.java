@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -41,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        // Request perms
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.SEND_SMS}, 2);
+                new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS}, 2);
 
+        // Create static objects
         smsRepo = new SmsRepository(this.getApplicationContext());
     }
 
