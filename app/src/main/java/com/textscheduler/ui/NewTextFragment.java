@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import java.text.SimpleDateFormat;
 
 public class NewTextFragment extends Fragment {
 
-    private FragmentNewTextBinding binding;
+    private static FragmentNewTextBinding binding;
 
     @Override
     public View onCreateView(
@@ -39,52 +40,71 @@ public class NewTextFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.buttonPickContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContactListDialogFragment dialogFragment = new ContactListDialogFragment();
+                dialogFragment.show(getChildFragmentManager(), "fragment_dialog_contact_list");
+            }
+        });
+
+        binding.buttonNewNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.textPhoneInput.requestFocus();
+                InputMethodManager lManager = (InputMethodManager) getActivity()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(binding.textPhoneInput, 0);
+            }
+        });
+
+        binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get SMS and time parameters from the text input boxes
+                String phoneInput = String.valueOf(binding.textPhoneInput.getText());
+                String dateInput = String.valueOf(binding.textDateInput.getText());
+                String timeInput = String.valueOf(binding.textTimeInput.getText());
+                String messageInput = String.valueOf(binding.textMessageInput.getText());
+                // Schedule settings
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy");
+                try {
+                    calendar.setTime(df.parse(dateInput));
+                } catch (ParseException e) {
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                }
+                try {
+                    calendar.set(Calendar.HOUR, Integer.parseInt(timeInput.substring(0,2)));
+                    calendar.set(Calendar.MINUTE, Integer.parseInt(timeInput.substring(3)));
+                } catch (NumberFormatException | StringIndexOutOfBoundsException e) {}
+                // Validity check before scheduling the SMS to avoid app crashes
+                Sms sms = new Sms(phoneInput, messageInput, String.valueOf(calendar.getTime()));
+                if(sms.isValid()) {
+                    // SMS Intent
+                    Intent intent = new Intent(getContext(), SmsReceiver.class);
+                    intent.putExtra("recipient_number", phoneInput);
+                    intent.putExtra("message_body", messageInput);
+                    intent.putExtra("send_datetime", String.valueOf(calendar.getTimeInMillis()));
+                    intent.setAction("com.textscheduler.text");
+                    PendingIntent pIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+                    // Alarm
+                    AlarmManager alarm = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                    alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+                    // Database record
+                    MainActivity.insertSmsRecord(sms);
+                    Toast.makeText(getContext(), "Text scheduled", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Text not scheduled - Invalid input", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         binding.buttonExisting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(NewTextFragment.this)
                         .navigate(R.id.action_NewTextFragment_to_ExistingTextsFragment);
-            }
-        });
-        binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Get SMS and time parameters from the text input boxes
-                String date = String.valueOf(binding.textDateInput.getText());
-                String time = String.valueOf(binding.textTimeInput.getText());
-                String phone = String.valueOf(binding.textPhoneInput.getText());
-                String message = String.valueOf(binding.textMessageInput.getText());
-                // Schedule settings
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy");
-                try {
-                    calendar.setTime(df.parse(date));
-                } catch (ParseException e) {
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                }
-                try {
-                    calendar.set(Calendar.HOUR, Integer.parseInt(time.substring(0,2)));
-                    calendar.set(Calendar.MINUTE, Integer.parseInt(time.substring(3)));
-                } catch (NumberFormatException | StringIndexOutOfBoundsException e) {}
-                // SMS Intent
-                Context context = getContext();
-                Intent intent = new Intent(context, SmsReceiver.class);
-                intent.putExtra("recipient_number", phone);
-                intent.putExtra("message_body", message);
-                intent.putExtra("send_datetime", String.valueOf(calendar.getTimeInMillis()));
-                intent.setAction("com.textscheduler.text");
-                PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-                // Alarm
-                AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
-                // Database record for other pages to reference (e.g. checking existing texts)
-                Sms sms = new Sms(phone, message, String.valueOf(calendar.getTime()));
-                if(sms.isValid()) {
-                    MainActivity.insertSmsRecord(sms);
-                    Toast.makeText(context, "Text scheduled", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(context, "Text not scheduled - Invalid input", Toast.LENGTH_LONG).show();
-                }
             }
         });
     }
@@ -93,5 +113,9 @@ public class NewTextFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    protected static void setPhoneInput(String phone) {
+        binding.textPhoneInput.setText(phone);
     }
 }
